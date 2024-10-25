@@ -46,7 +46,7 @@ if st.session_state.api_key and st.session_state.base_url and st.session_state.m
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a helpful assistant, expert in <Quantum Mechanics>. You are trained to <Function>"
+                        "content": "You are a helpful assistant. You are trained to help with user query"
                     },
                     {
                         "role": "user",
