@@ -1,5 +1,6 @@
 import streamlit as st
 from openai import OpenAI
+import time
 
 # Initialize session state for API key, base URL, and model
 if 'api_key' not in st.session_state:
@@ -39,6 +40,7 @@ if st.session_state.api_key and st.session_state.base_url and st.session_state.m
                 api_key=st.session_state.api_key,
                 base_url=st.session_state.base_url,
             )
+            start_time = time.time()
 
             # Prepare the chat completion request
             completion = client.chat.completions.create(
@@ -55,10 +57,14 @@ if st.session_state.api_key and st.session_state.base_url and st.session_state.m
                 ]
             )
 
+            end_time = time.time()
+            response_time = end_time - start_time
+
             # Display the response from OpenAI
             response_message = completion.choices[0].message.content
             st.success("Response received!")
             st.write(response_message)
+            st.info(f"Inference time: {response_time:.2f} seconds")
 
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
