@@ -1,28 +1,32 @@
 import streamlit as st
 from openai import OpenAI
 
-# Initialize session state for API key and base URL
+# Initialize session state for API key, base URL, and model
 if 'api_key' not in st.session_state:
     st.session_state.api_key = ""
 if 'base_url' not in st.session_state:
     st.session_state.base_url = ""
+if 'model' not in st.session_state:
+    st.session_state.model = ""
 
 st.title("Nbula Interaction")
 
-# Input form for OpenAI API key and base URL
+# Input form for OpenAI API key, base URL, and model
 with st.form(key='Nbula Setup'):
     base_url = st.text_input("Enter the NBULA Base URL:", st.session_state.base_url)
-    api_key = st.text_input("Enter Your NBULA key:", st.session_state.api_key, type='password')
+    api_key = st.text_input("Enter Your NBULA Key:", st.session_state.api_key, type='password')
+    model = st.text_input("Enter Model Name:", st.session_state.model)
     save_button = st.form_submit_button(label='Save')
 
-# Save API key and base URL to session state
+# Save API key, base URL, and model to session state
 if save_button:
     st.session_state.api_key = api_key
     st.session_state.base_url = base_url
-    st.success("NBULA API Key and Base URL saved!")
+    st.session_state.model = model
+    st.success("NBULA API Key, Base URL, and Model saved!")
 
-# Ensure that the API key and base URL are provided
-if st.session_state.api_key and st.session_state.base_url:
+# Ensure that the API key, base URL, and model are provided
+if st.session_state.api_key and st.session_state.base_url and st.session_state.model:
     st.subheader("Chat with NBULA Model")
 
     # Input for message prompt
@@ -38,7 +42,7 @@ if st.session_state.api_key and st.session_state.base_url:
 
             # Prepare the chat completion request
             completion = client.chat.completions.create(
-                model="meta-llama/Llama-3.2-1B-Instruct",
+                model=st.session_state.model,
                 messages=[
                     {
                         "role": "system",
@@ -59,4 +63,4 @@ if st.session_state.api_key and st.session_state.base_url:
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
 else:
-    st.warning("Please provide the Nbula API key and base URL to proceed.")
+    st.warning("Please provide the Nbula API key, base URL, and model to proceed.")
