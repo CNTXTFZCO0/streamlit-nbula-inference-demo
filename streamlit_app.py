@@ -7,28 +7,28 @@ if 'api_key' not in st.session_state:
 if 'base_url' not in st.session_state:
     st.session_state.base_url = ""
 
-st.title("OpenAI Chat Completion Interaction")
+st.title("Nbula Interaction")
 
 # Input form for OpenAI API key and base URL
-with st.form(key='openai_setup'):
-    base_url = st.text_input("Enter the OpenAI Base URL:", st.session_state.base_url)
-    api_key = st.text_input("Enter OpenAI API Key:", st.session_state.api_key, type='password')
+with st.form(key='Nbula Setup'):
+    base_url = st.text_input("Enter the NBULA Base URL:", st.session_state.base_url)
+    api_key = st.text_input("Enter Your NBULA key:", st.session_state.api_key, type='password')
     save_button = st.form_submit_button(label='Save')
 
 # Save API key and base URL to session state
 if save_button:
     st.session_state.api_key = api_key
     st.session_state.base_url = base_url
-    st.success("OpenAI API Key and Base URL saved!")
+    st.success("NBULA API Key and Base URL saved!")
 
 # Ensure that the API key and base URL are provided
 if st.session_state.api_key and st.session_state.base_url:
-    st.subheader("Chat with OpenAI Model")
+    st.subheader("Chat with NBULA Model")
 
     # Input for message prompt
     message_prompt = st.text_area("Enter your message prompt:", "What is a qbit?")
 
-    if st.button("Send to OpenAI"):
+    if st.button("Send to NBULA"):
         try:
             # Initialize OpenAI client
             client = OpenAI(
