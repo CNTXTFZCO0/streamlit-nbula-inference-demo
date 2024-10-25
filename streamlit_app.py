@@ -59,4 +59,4 @@ if st.session_state.api_key and st.session_state.base_url:
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
 else:
-    st.warning("Please provide the OpenAI API key and base URL to proceed.")
+    st.warning("Please provide the Nbula API key and base URL to proceed.")
