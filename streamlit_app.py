@@ -30,7 +30,7 @@ if st.session_state.api_key and st.session_state.base_url and st.session_state.m
     st.subheader("Chat with NBULA Model")
 
     # Input for message prompt
-    message_prompt = st.text_area("Enter your message prompt:", "What is a qbit?")
+    message_prompt = st.text_area("Enter your message prompt:", "What is the best time to visit Dubai?")
 
     if st.button("Send to NBULA"):
         try:
